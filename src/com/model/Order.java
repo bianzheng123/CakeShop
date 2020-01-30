@@ -26,6 +26,11 @@ public class Order {
 	//查看订单时从数据库中取出货物的信息
 	private List<OrderItem> itemList = new ArrayList<OrderItem>();
 	
+	public void setUsername(String username) {
+		user = new User();
+		user.setUsername(username);
+	}
+	
 	public void addGoods(Goods g) {
 		if(itemMap.containsKey(g.getId())) {
 			OrderItem item = itemMap.get(g.getId());

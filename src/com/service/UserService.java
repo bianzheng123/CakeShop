@@ -1,8 +1,12 @@
 package com.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.dao.UserDao;
+import com.model.Order;
+import com.model.OrderItem;
+import com.model.Page;
 import com.model.User;
 
 public class UserService {
@@ -49,6 +53,17 @@ public class UserService {
 		}
 	}
 	
+	public User selectById(int id) {
+		User u = null;
+		try {
+			u = uDao.selectById(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
 	public void updateUserAddress(User user) {
 		try {
 			uDao.updateUserAddress(user);
@@ -64,6 +79,41 @@ public class UserService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	public Page getUserPage(int pageNo) {
+		Page p = new Page();
+		p.setPageNo(pageNo);
+		int pageSize = 7;
+		int totalCount = 0;
+		try {
+			totalCount = uDao.selectUserCount();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p.setPageSizeAndTotalCount(pageSize, totalCount);
+		
+		List list = null;
+		try {
+			list = uDao.selectUserList(pageNo, pageSize);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p.setList(list);
+		return p;
+	}
+	
+	public boolean delete(int id) {
+		try {
+			uDao.delete(id);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

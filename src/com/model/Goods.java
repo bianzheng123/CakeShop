@@ -11,6 +11,36 @@ public class Goods {
 	private int stock;
 	private Type type;
 	
+	private boolean isScroll;
+	private boolean isHot;
+	private boolean isNew;
+	
+	
+	
+	public boolean getIsScroll() {
+		return isScroll;
+	}
+
+	public void setScroll(boolean isScroll) {
+		this.isScroll = isScroll;
+	}
+
+	public boolean getIsHot() {
+		return isHot;
+	}
+
+	public void setHot(boolean isHot) {
+		this.isHot = isHot;
+	}
+
+	public boolean getIsNew() {
+		return isNew;
+	}
+
+	public void setNew(boolean isNew) {
+		this.isNew = isNew;
+	}
+
 	//queryRunner里面要求的方法格式一定要是首字母大写
 	//这两个方法是在给type进行赋值
 	public void setTypeid(int typeid) {

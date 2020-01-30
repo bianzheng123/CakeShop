@@ -7,6 +7,7 @@ import java.util.List;
 import com.dao.OrderDao;
 import com.model.Order;
 import com.model.OrderItem;
+import com.model.Page;
 import com.utils.DBUtil;
 
 public class OrderService {
@@ -57,4 +58,61 @@ public class OrderService {
 		return list;
 	}
 
+	public Page getOrderPage(int status,int pageNo) {
+		Page p = new Page();
+		p.setPageNo(pageNo);
+		int pageSize = 10;
+		int totalCount = 0;
+		try {
+			totalCount = oDao.getOrderCount(status);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p.setPageSizeAndTotalCount(pageSize, totalCount);
+		
+		List list = null;
+		try {
+			list = oDao.selectOrderList(status, pageNo, pageSize);
+			for(Order o: (List<Order>)list) {
+				List<OrderItem> l = oDao.selectAllItem(o.getId());
+				o.setItemList(l);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p.setList(list);
+		return p;
+	}
+	
+	public void updateStatus(int id,int status) {
+		try {
+			oDao.updateStatus(id, status);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void delete(int id) {
+		Connection con = null;
+		try {
+			con = DBUtil.getDataSource().getConnection();
+			con.setAutoCommit(false);
+			oDao.deleteOrderItem(con, id);
+			oDao.deleteOrder(con, id);
+			con.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			if(con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+			}
+		}
+	}
 }

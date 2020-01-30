@@ -93,6 +93,11 @@ public class GoodsService {
 		List list = null;
 		try {
 			list = gDao.selectGoodsRecommend(type, pageNo, 8);
+			for(Goods g : (List<Goods>)list) {
+				g.setScroll(gDao.isScroll(g));
+				g.setNew(gDao.isNew(g));
+				g.setHot(gDao.isHot(g));
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -135,4 +140,48 @@ public class GoodsService {
 		return p;
 	}
 
+	public void addRecommend(int id,int type) {
+		try {
+			gDao.addRecommend(id, type);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeRecommend(int id,int type) {
+		try {
+			gDao.removeRecommend(id, type);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void insert(Goods g) {
+		try {
+			gDao.insert(g);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void update(Goods g) {
+		try {
+			gDao.update(g);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(int id) {
+		try {
+			gDao.delete(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

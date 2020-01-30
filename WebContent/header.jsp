@@ -55,7 +55,7 @@
 					</c:choose>
 						
 					<c:if test="${!empty user && user.isadmin }">
-						<li><a href="../admin.jsp" target="_blank">后台管理</a></li>
+						<li><a href="${pageContext.request.contextPath }/admin/admin_index.jsp" target="_blank">后台管理</a></li>
 					</c:if>
 					
 				</ul> 

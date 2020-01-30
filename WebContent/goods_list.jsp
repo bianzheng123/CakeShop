@@ -60,16 +60,11 @@
 				
 				<div class="clearfix"> </div>
 			</div>
-			<div><div style='text-align:center;'>
-<a class='btn btn-info' <c:if test="${p.pageNo==1 }">disabled</c:if> <c:if test="${p.pageNo!=1 }">href="${pageContext.request.contextPath }/goods_list?pageNo=1&id=${id}"</c:if>>首页</a> 
-<a class='btn btn-info' <c:if test="${p.pageNo==1 }">disabled</c:if> <c:if test="${p.pageNo!=1 }">href="${pageContext.request.contextPath }/goods_list?pageNo=${p.pageNo-1}&id=${id}"</c:if>>上一页</a>
-<h3 style='display:inline;'>[${p.pageNo }/${p.totalPage }]</h3>
-<h3 style='display:inline;'>[${p.totalCount }]</h3>
-<a class='btn btn-info' <c:if test="${p.totalPage==0 || p.pageNo==p.totalPage }">disabled</c:if> <c:if test="${p.pageNo!=p.totalPage }">href="${pageContext.request.contextPath }/goods_list?pageNo=${p.pageNo+1}&id=${id}"</c:if>>下一页</a>
-<a class='btn btn-info' <c:if test="${p.totalPage==0 || p.pageNo==p.totalPage }">disabled</c:if> <c:if test="${p.pageNo!=p.totalPage }">href="${pageContext.request.contextPath }/goods_list?pageNo=${p.totalPage}&id=${id}"</c:if> >尾页</a>
-<input type='text' class='form-control' style='display:inline;width:60px;' value=''/><a class='btn btn-info' href='javascript:void(0);' onclick='location.href="${pageContext.request.contextPath }/goods_list?id=${id}&pageNo="+(this.previousSibling.value)'>GO</a>
-</div>
-</div>
+			
+			<jsp:include page="/page.jsp">
+				<jsp:param value="/goods_list" name="url"/>
+				<jsp:param value="&id=${id}" name="param"/>
+			</jsp:include>
 		</div>
 	</div>
 	<!--//products-->	
